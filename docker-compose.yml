@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  warehouse-dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - warehouse-network
+
+  # Optional: Add a reverse proxy (nginx) for production
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro  # Optional: for SSL certificates
+    depends_on:
+      - warehouse-dashboard
+    restart: unless-stopped
+    networks:
+      - warehouse-network
+
+networks:
+  warehouse-network:
+    driver: bridge
+
+volumes:
+  warehouse-data:
+    driver: local

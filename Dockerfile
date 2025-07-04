@@ -9,6 +9,7 @@ WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json package-lock.json* ./
+RUN npm install
 RUN \
   if [ -f package-lock.json ]; then npm ci --only=production; \
   else echo "Lockfile not found." && exit 1; \

@@ -110,7 +110,7 @@ export function ChatWidget() {
       {/* Chat Window */}
       {isOpen && (
         <div ref={chatRef}>
-          <Card className="fixed bottom-24 right-6 z-50 w-80 h-96 shadow-xl">
+          <Card className="fixed bottom-24 right-6 z-50 w-[450px] h-[500px] shadow-xl">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg">Warehouse Assistant</CardTitle>
             </CardHeader>

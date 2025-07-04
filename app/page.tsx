@@ -22,11 +22,13 @@ import {
   Tooltip,
   Legend,
   Filler,
+  LineController,
+  BarController
 } from "chart.js"
 import { Chart } from "react-chartjs-2"
 
 // Register Chart.js components
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend, Filler)
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend, Filler,  LineController, BarController)
 
 // Add these helper functions after the imports
 const calculateInboundTotal = () => {
